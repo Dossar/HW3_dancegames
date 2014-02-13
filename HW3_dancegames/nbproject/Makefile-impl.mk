@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=HW3_dancegames
+PROJECTNAME=hw3_dancegames
 
 # Active Configuration
 DEFAULTCONF=Debug
