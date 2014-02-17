@@ -1,20 +1,28 @@
-//Constructor Player
-//Demonstrates constructors
+/* 
+ * File:   dancegames.cpp
+ * Author: Roy Van Liew and Saqib Zahid
+ * 
+ * Last Modified February 17th, 2014
+ */
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
 
 using namespace std;
+
+// Counting function works and critters work so far.
 
 class Player
 {
 public:
     
     Player();       // default constructor prototype
-	Player(int thres, string name); // constructor with parameters
+	Player(int thres, int stam, string name); // constructor with parameters
+        Player(int thres, string name = "Expert"); // constructor with default parameters
 	Player(const Player& c); //copy constructor
 	~Player(); //destructor
-    void Greet();
     void getStats();
     	/***** Accessor Functions for our Dance Game Players. *****/
 	int getStamina()
@@ -33,10 +41,10 @@ public:
 	{
 		return threshold;
 	}
-//	int getPlayerCount()
-//	{
-//		return playercount;
-//	}
+	int getPlayerCount()
+	{
+		return playercount;
+	}
 
 	/***** Mutator Functions for our Dance Game Players. *****/
 	void gainStamina(){
@@ -71,45 +79,54 @@ private:
 	int water; // How much water the player has left in his or her bottle.
 	int stamina; // How much energy the player has left.
 	int threshold; // Highest difficulty dance game player can pass.
-	// static int playercount; // Keep track of how many dance game players we have.
+	static int playercount; // Keep track of how many dance game players we have.
 };
 
-Player::Player()       // constructor definition
+Player::Player() // Default constructor
 {
         dname = "ITG Player";
-        stamina = 15;
+        stamina = 25;
         water = 5;
         threshold = 12;
-        //playercount++;
-        cout << dname << " has entered the dance scene!" << endl;
+        playercount++;
+        cout << dname << " has entered the dance scene." << endl;
 }
-Player::Player(int thres, string name)       // constructor definition
+Player::Player(int thres, int stam, string name) // Constructor with parameters
 {
         dname = name;
-        stamina = 15;
+        stamina = stam;
         water = 5;
         threshold = thres;
-        //playercount++;
-        cout << dname << " has entered the dance scene!" << endl;
+        playercount++;
+        cout << dname << " has entered the dance scene." << endl;
 }
-Player::Player(const Player& p)//copy constructor
+Player::Player(int thres, string name) // Constructor with default parameters
+{
+        dname = name;
+        stamina = 25;
+        water = 5;
+        threshold = thres;
+        playercount++;
+        cout << dname << " has entered the dance scene." << endl;
+}
+Player::Player(const Player& p) // Copy constructor
 {
 	dname = "Clone of " + p.dname;
 	water = p.water;
 	stamina = p.stamina;
 	threshold = p.threshold;
-	//playercount++;
-	cout << dname << " has entered the dance scene!" << endl;
+	playercount++;
+	cout << dname << " has entered the dance scene." << endl;
 }
 
 	//destructor
 Player::~Player()
 {
-        cout << dname << " left the dance scene!" << endl;
+        cout << dname << " left the dance scene." << endl;
 		
 }
 
-// int Player::playercount = 0; // Initialize player count to zero.
+int Player::playercount = 0; // Initialize player count to zero.
 int metalpad = 20; // Initialize our dance pad's condition
 string songname[12];
 int songdifficulty[12];
@@ -148,32 +165,30 @@ void fixPads()
 
  }
 
-void Player::Greet()             
-{
-    cout << "Hello, my name is " << dname << endl;
-}
-
 void Player::getStats()
 {
     cout << "Player: " << dname << endl;
     cout << "Stamina: " << stamina << endl;
-    cout << "Passing capability: " << threshold << endl;
+    cout << "Passing capability: " << (threshold+2) << endl;
     cout << "Water left: " << water << endl;
+    cout << "\n";
 }
 
 int main()
 {    
-    Player crit1;
-    crit1.Greet();
-    crit1.getStats();
-
-	Player crit2(19, "Matt");
-	crit2.Greet();
-        crit2.getStats();
-
-	Player crit3(crit2);
-	crit3.Greet();
-        crit3.getStats();
+    makeSongList();
+    cout << "--- Welcome to In The Groove ---" << endl;
+    
+    {
+        // Create our players
+        Player player1;
+        Player player2(19, "Matt");
+        Player player3(15);
+        Player player4(player2);
+        cout << "We have " << player1.getPlayerCount() << " players!" << endl;
+        cout << "\n";
+    }
+    
 	
     return 0;
 }
