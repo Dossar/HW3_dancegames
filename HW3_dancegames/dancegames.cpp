@@ -27,26 +27,11 @@ public:
     void playGame();
     void selectMusic();
     	/***** Accessor Functions for our Dance Game Players. *****/
-	int getStamina()
-	{
-		return stamina;
-	}
-	int getWater()
-	{
-		return water;
-	}
-	string getName()
-	{
-		return dname;
-	}
-	int getThreshold()
-	{
-		return threshold;
-	}
-	int getPlayerCount()
-	{
-		return playercount;
-	}
+	int getStamina(){return stamina;}
+	int getWater(){return water;}
+	string getName(){return dname;}
+	int getThreshold(){return threshold;}
+	int getPlayerCount(){return playercount;}
 
 	/***** Mutator Functions for our Dance Game Players. *****/
 	void gainStamina(){
@@ -123,7 +108,8 @@ Player::Player(const Player& p) // Copy constructor
 Player::~Player()
 {
         cout << dname << " left the dance scene." << endl;
-	playercount--;	
+	playercount--;
+        cout << "There are " << playercount << " players left." << endl;
 }
 
 void Player::playGame()
@@ -152,9 +138,11 @@ void Player::playGame()
                         refillWater();
                     }
                     else
+                    {
                         gainStamina();
                         if( stamina > 25 && threshold < 15 )
                             fixThreshold();
+                    }
                     break;
                 case 3:
                     break;
@@ -191,8 +179,10 @@ void Player::selectMusic()
     while( song < 1 || song > 6 )
     {
         cin >> song;
-        if( song < 1 || song > 6 )
+        if( song < 1 || song > 6 ){
             cout << "Song list is numbered 1-6, try again." << endl;
+            cin >> song;
+        }
         // If song selection was correct
         if( song >= 1 && song <= 6 )
         {
@@ -282,10 +272,13 @@ int main()
     
         // Create our players
         Player player1;
-        Player player2(14, 35, "Matt");
+        cout << "Current player count: " << player1.getPlayerCount() << endl;
+        Player player2(15, 50, "Zetorux");
+        cout << "Current player count: " << player1.getPlayerCount() << endl;
         Player player3(13);
-        Player player4(player2);
-        cout << "We have " << player1.getPlayerCount() << " players!" << endl;
+        cout << "Current player count: " << player1.getPlayerCount() << endl;
+        Player player4(player1);
+        cout << "Current player count: " << player1.getPlayerCount() << endl;
         cout << "\n";
         
         do
